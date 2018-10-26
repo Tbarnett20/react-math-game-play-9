@@ -2,8 +2,8 @@ import React from 'react';
 
 const Button = (props) => {
   return (
-    <div>
-      ...
+    <div className="col-2">
+      <button>=</button>
     </div>
   )
 }
