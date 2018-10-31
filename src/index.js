@@ -6,8 +6,8 @@ import App from './component/App';
 import * as serviceWorker from './serviceWorker';
 
 import { library } from '@fortawesome/fontawesome-svg-core'
-import { faGhost, faStar, faCheck, faTimes } from '@fortawesome/free-solid-svg-icons'
-library.add(faGhost, faStar, faCheck, faTimes)
+import { faGhost, faStar, faCheck, faTimes, faRedo } from '@fortawesome/free-solid-svg-icons'
+library.add(faGhost, faStar, faCheck, faTimes, faRedo)
 
 ReactDOM.render(<App />, document.getElementById('root'));
 

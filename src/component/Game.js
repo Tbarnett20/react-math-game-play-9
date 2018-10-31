@@ -12,6 +12,7 @@ class Game extends React.Component {
     randomNumberOfStars: 1 + Math.floor(Math.random()*9),
     usedNumbers: [],
     answerIsCorrect: null,
+    redraws: 5,
   };
 
   selectNumber = (clickedNumber) => {
@@ -42,10 +43,21 @@ class Game extends React.Component {
       answerIsCorrect: null,
       randomNumberOfStars: 1 + Math.floor(Math.random()*9),
     }))
+  };
+  redraw = () => {
+    if (this.state.redraws === 0) {
+      return;
+    }
+    this.setState(prevState =>({
+      randomNumberOfStars: 1 + Math.floor(Math.random()*9),
+      selectedNumbers: [],
+      answerIsCorrect: null,
+      redraws: prevState.redraws - 1,
+    }))
   }
 
   render() {
-    const { selectedNumbers, randomNumberOfStars, answerIsCorrect, usedNumbers } = this.state
+    const { selectedNumbers, randomNumberOfStars, answerIsCorrect, usedNumbers, redraws } = this.state
     return (
       <div className="container">
         <h3>Play Nine</h3>
@@ -53,9 +65,11 @@ class Game extends React.Component {
         <div className="row">
          <Stars  numberOfStars={randomNumberOfStars} />
          <Button selectedNumbers={selectedNumbers}
+                 redraws={redraws}
                  checkAnswer={this.checkAnswer}
                  answerIsCorrect={answerIsCorrect}
                  acceptAnswer={this.acceptAnswer}
+                 redraw={this.redraw}
           />
          <Answer selectedNumbers={selectedNumbers} 
                  unselectNumber={this.unselectNumber} 
