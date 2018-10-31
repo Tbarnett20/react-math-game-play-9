@@ -10,18 +10,21 @@ class Game extends React.Component {
   state = {
     selectedNumbers: [],
     randomNumberOfStars: 1 + Math.floor(Math.random()*9),
+    usedNumbers: [],
     answerIsCorrect: null,
   };
 
   selectNumber = (clickedNumber) => {
     if (this.state.selectedNumbers.indexOf(clickedNumber) >= 0) { return; }
     this.setState(prevState => ({
+      answerIsCorrect: null,
       selectedNumbers: prevState.selectedNumbers.concat(clickedNumber)
     }))
   };
   unselectNumber = (clickedNumber) => {
     // if (this.state.selectedNumbers.indexOf(clickedNumber) >= 0) { return; }
     this.setState(prevState => ({
+      answerIsCorrect: null,
       selectedNumbers: prevState.selectedNumbers.filter(number => number !== clickedNumber)
     }))
   };
@@ -31,9 +34,18 @@ class Game extends React.Component {
       answerIsCorrect: prevState.randomNumberOfStars ===
       prevState.selectedNumbers.reduce((acc, n) => acc + n, 0)
     }))
+  };
+  acceptAnswer = () => {
+    this.setState(prevState => ({
+      usedNumbers: prevState.usedNumbers.concat(prevState.selectedNumbers),
+      selectedNumbers: [],
+      answerIsCorrect: null,
+      randomNumberOfStars: 1 + Math.floor(Math.random()*9),
+    }))
   }
+
   render() {
-    const { selectedNumbers, randomNumberOfStars, answerIsCorrect } = this.state
+    const { selectedNumbers, randomNumberOfStars, answerIsCorrect, usedNumbers } = this.state
     return (
       <div className="container">
         <h3>Play Nine</h3>
@@ -43,6 +55,7 @@ class Game extends React.Component {
          <Button selectedNumbers={selectedNumbers}
                  checkAnswer={this.checkAnswer}
                  answerIsCorrect={answerIsCorrect}
+                 acceptAnswer={this.acceptAnswer}
           />
          <Answer selectedNumbers={selectedNumbers} 
                  unselectNumber={this.unselectNumber} 
@@ -51,6 +64,7 @@ class Game extends React.Component {
      <br></br>
      <Numbers selectedNumbers={selectedNumbers}
               selectNumber={this.selectNumber}
+              usedNumbers={usedNumbers}
      />
       </div>
     )

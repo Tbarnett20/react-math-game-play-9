@@ -7,7 +7,7 @@ const Button = (props) => {
    case true:
    button =
    <div className="col-2">
-      <button className="btn btn-success">
+      <button className="btn btn-success" onClick={props.acceptAnswer}>
       <FontAwesomeIcon className="check" icon="check" />
       </button>
     </div>
